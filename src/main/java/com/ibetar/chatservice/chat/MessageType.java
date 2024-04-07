@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum MessageType {
-    CHAT, JOIN, LEAVE, NOT_AVAILABLE
+    CHAT, JOIN, LEAVE, NOT_AVAILABLE, TYPING
 }
