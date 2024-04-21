@@ -29,7 +29,7 @@ function connect(event) {
 
         stompClient.connect({}, onConnected, onError);
     } else {
-        alert('Please enter a username.'); // Display a simple alert for now
+        showAlert('Please enter a username.');
     }
     event.preventDefault();
 }
@@ -59,7 +59,7 @@ function onMessageReceived(payload) {
 
     if(message.type === 'JOIN') {
         messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        message.content = message.sender + ' joined the chat!';
     } else if (message.type === 'LEAVE') {
         messageElement.classList.add('event-message');
         message.content = message.sender + ' left!';
@@ -111,6 +111,29 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % colors.length);
     return colors[index];
 }
+
+function showAlert(message) {
+    var alertElement = document.createElement('div');
+    alertElement.textContent = message;
+    alertElement.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px 20px;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    `;
+    document.body.appendChild(alertElement);
+
+    setTimeout(function() {
+        alertElement.remove();
+    }, 3000); // Remove the alert after 3 seconds
+}
+
 
 usernameForm.addEventListener('submit', connect, true);
 messageForm.addEventListener('submit', sendMessage, true);
